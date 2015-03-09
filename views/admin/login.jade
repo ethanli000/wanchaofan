@@ -1,0 +1,13 @@
+doctype html
+html
+  include ../includes/head
+  body
+    div.front
+      div.verticaler
+      div.login-form
+        form(action='login',method='post')
+          input(type="text", name="user")
+          input(type="password", name="pass")
+          input(type="submit", name="login" value="login")
+        if message
+          div #{message}
