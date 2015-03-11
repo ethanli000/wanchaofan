@@ -1,12 +1,9 @@
 var express = require('express');
 var router = express.Router();
-var Mongolian = require("mongolian");
-var db = new Mongolian("mongodb://wcfadmin:8ffae097a0@ds029960.mongolab.com:29960/wanchaofan");
-//var db = server.db("");
+var path = require('path');
+var admin = require(path.join(__dirname, '../modules/admin'));
 
-
-/* GET users listing. */
-router.get('/', function (req, res, next) {
+router.get('/', function (req, res) {
   var sess = req.session;
   if (!sess.login_flg) {
     res.redirect('/admin/login');
@@ -15,7 +12,7 @@ router.get('/', function (req, res, next) {
   }
 });
 
-router.get('/login', function (req, res, next) {
+router.get('/login', function (req, res) {
   var sess = req.session;
   if (sess.login_flg) {
     res.redirect('/admin/');
@@ -24,31 +21,27 @@ router.get('/login', function (req, res, next) {
   }
 });
 
-router.post('/login', function (req, res, next) {
+router.post('/login', function (req, res) {
   var sess = req.session;
-  console.log(req.body);
   if (req.body.login) {
-    var info = db.collection('info');
-    info.findOne({ admin_id: "wanchaofan" }, function (err, site_info) {
-      console.log(err);
-      console.log(site_info);
-      if (!err && site_info) {
-        if (req.body.user !== site_info.admin_id || req.body.pass !== site_info.password) {
-          res.render('admin/login', { title: 'Wan Chaofan - admin login', message: 'username/password wrong' });
-        } else {
-          sess.login_flg = 1;
-          res.redirect('/admin/');
-        }
-      } else {
-        res.render('admin/login', { title: 'Wan Chaofan - admin login', message: 'unexpect way to login' });
+    admin.login(req.body.user, req.body.pass, function (result) {
+      if (result === "error") {
+        res.render('admin/login', { title: 'Wan Chaofan - admin login', message: 'login failed unexpectedly' });
+      }
+      if (result === "failed") {
+        res.render('admin/login', { title: 'Wan Chaofan - admin login', message: 'username/password wrong' });
+      }
+      if (result === "success") {
+        sess.login_flg = 1;
+        res.redirect('/admin/');
       }
     });
   } else {
-    res.render('admin/login', { title: 'Wan Chaofan - admin login', message: 'unexpect way to login' });
+    res.render('admin/login', { title: 'Wan Chaofan - admin login', message: 'login failed without push login button' });
   }
 });
 
-router.get('/logout', function (req, res, next) {
+router.get('/logout', function (req, res) {
   req.session.destroy();
   res.redirect('/admin/login');
 });
