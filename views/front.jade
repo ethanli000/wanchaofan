@@ -1,9 +1,10 @@
-doctype html
-html
+extends layout
+
+block head
   include includes/head
   link(rel='stylesheet', href='/stylesheets/front.css')
-  body
-    div.grand-container
-      div.verticaler
-      div.logo-img
-        a(href="/")
+
+block content
+  div.verticaler
+  div.logo-img
+    a(href="/")

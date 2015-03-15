@@ -1,0 +1,21 @@
+extends ../layout
+
+block head
+  include ../includes/admin_head
+
+block content
+  div.admin-title
+    | INFO
+  div.info-form
+    if user_info == "error"
+      div error: failed to get your information, please refresh this page.
+    else
+      form(action='info',method='post')
+        input(type="text", name="phone" value="#{user_info.contact.phone}")
+        input(type="text", name="email" value="#{user_info.contact.email}")
+        textarea(name="bio")
+          | #{user_info.bio}
+        input(type="submit", name="save" value="save")
+  if error_message != ""
+    div.error_message
+      | #{error_message}

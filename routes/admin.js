@@ -8,7 +8,20 @@ router.get('/', function (req, res) {
   if (!sess.login_flg) {
     res.redirect('/admin/login');
   } else {
-    res.render('admin/index', { title: 'Wan Chaofan - admin' });
+    admin.displayInfo(function (user_info) {
+      res.render('admin/info', { title: 'Wan Chaofan - admin - info', user_info: user_info });
+    });
+  }
+});
+
+router.get('/info', function (req, res) {
+  var sess = req.session;
+  if (!sess.login_flg) {
+    res.redirect('/admin/login');
+  } else {
+    admin.displayInfo(function (user_info) {
+      res.render('admin/info', { title: 'Wan Chaofan - admin - info', user_info: user_info });
+    });
   }
 });
 
@@ -44,6 +57,30 @@ router.post('/login', function (req, res) {
 router.get('/logout', function (req, res) {
   req.session.destroy();
   res.redirect('/admin/login');
+});
+
+router.post('/info', function (req, res) {
+  var sess = req.session;
+  if (!sess.login_flg) {
+    res.redirect('/admin/login');
+  } else {
+    if (req.body.save) {
+      admin.changeInfo(req.body, function (status) {
+        admin.displayInfo(function (user_info) {
+          var error_message = "";
+          if (status === false) {
+            error_message = "change failed";
+          }
+          res.render('admin/info', { title: 'Wan Chaofan - admin - info', user_info: user_info, error_message: error_message });
+        });
+      });
+    } else {
+      admin.displayInfo(function (user_info) {
+        var error_message = "post save info in expected way";
+        res.render('admin/info', { title: 'Wan Chaofan - admin - info', user_info: user_info, error_message: error_message });
+      });
+    }
+  }
 });
 
 module.exports = router;
