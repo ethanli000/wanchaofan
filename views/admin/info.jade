@@ -1,9 +1,14 @@
 extends ../layout
 
 block head
-  include ../includes/admin_head
+  include includes/admin_head
 
-block content
+block side
+  div.logo
+  div.side-menu
+    include includes/admin_menu
+
+block main
   div.admin-title
     | INFO
   div.info-form
