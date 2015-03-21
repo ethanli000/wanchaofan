@@ -8,8 +8,11 @@ var session = require('express-session');
 
 var front = require('./routes/front');
 var cover = require('./routes/cover');
-var admin = require('./routes/admin');
 var photo = require('./routes/photo');
+var bio = require('./routes/bio');
+
+var admin = require('./routes/admin');
+var admin_photo = require('./routes/admin_photo');
 
 var app = express();
 
@@ -32,8 +35,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', front);
 app.use('/index', cover);
-app.use('/admin', admin);
 app.use('/photo', photo);
+app.use('/bio', bio);
+app.use('/admin', admin);
+app.use('/admin/photo', admin_photo);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

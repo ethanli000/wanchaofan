@@ -1,0 +1,12 @@
+extends layout
+
+block head
+  include includes/head
+  link(rel='stylesheet', href='/stylesheets/main.css')
+
+block side
+  include includes/menu
+
+block main
+  div.gallery
+    | show a picture

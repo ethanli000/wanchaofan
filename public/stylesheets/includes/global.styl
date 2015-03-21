@@ -1,5 +1,9 @@
 $contentFont = "Lucida Grande", Helvetica, Arial, sans-serif
 
+$sideMenuTextColor = #b8b8b8
+$sideContainerWidth = 230px
+$sideMenuMarginRight = 30px
+
 div,p,h1
   margin:0
   padding:0
@@ -18,9 +22,46 @@ body
   width: 100%
   height: 100%
   min-height: 100% !important
-  background-color: #FAFAFA
+  background-color: #FBFBFB
   vertical-align: middle
   .verticaler
     display: inline-block
     vertical-align: middle
     height: 100%
+    
+.side-container
+  float: left
+  position: relative
+  width: $sideContainerWidth
+  height: 100%
+  text-align: right
+
+#logo
+  margin 50px $sideMenuMarginRight 50px 0
+  font-size:2em
+  a
+    color: inherit
+    text-decoration: none
+        
+#side-menu
+  ul
+    margin: 0
+    padding: 0
+    list-style-type: none
+    li a
+      display:block
+      width: auto
+      padding: 3px $sideMenuMarginRight 3px 0
+      font-size: 1.4em
+      text-decoration: none
+      color: $sideMenuTextColor
+      &:hover
+        color: darken($sideMenuTextColor,75%)
+    li.selected a
+      color: darken($sideMenuTextColor,75%)  
+  
+.main-container
+  position: relative
+  margin-left: $sideContainerWidth
+  height: 100%
+  text-align: left

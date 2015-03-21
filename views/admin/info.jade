@@ -4,23 +4,24 @@ block head
   include includes/admin_head
 
 block side
-  div.logo
-  div.side-menu
-    include includes/admin_menu
+  include includes/admin_menu
 
 block main
   div.admin-title
     | INFO
   div.info-form
     if user_info == "error"
-      div error: failed to get your information, please refresh this page.
+      div.error-message error: failed to get your information, please refresh this page.
     else
       form(action='info',method='post')
+        label PHONE
         input(type="text", name="phone" value="#{user_info.contact.phone}")
+        label EMAIL
         input(type="text", name="email" value="#{user_info.contact.email}")
+        label(for="bio") BIO
         textarea(name="bio")
           | #{user_info.bio}
-        input(type="submit", name="save" value="save")
-  if error_message != ""
-    div.error_message
-      | #{error_message}
+        input(type="submit", name="save" value="SAVE")
+      if error_message != ""
+        div.error-message
+          | #{error_message}

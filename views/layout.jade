@@ -2,6 +2,10 @@ extends global-layout
 
 block content
   div.side-container
-    block side
+    div#logo
+      a#home(href="/index")
+        | Wan Chaofan
+    div#side-menu
+      block side
   div.main-container
     block main
