@@ -38,7 +38,7 @@ app.use('/index', cover);
 app.use('/photo', photo);
 app.use('/bio', bio);
 app.use('/admin', admin);
-app.use('/admin/photo', admin_photo);
+app.use('/admin/series', admin_photo);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

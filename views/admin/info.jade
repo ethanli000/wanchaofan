@@ -13,15 +13,15 @@ block main
     if user_info == "error"
       div.error-message error: failed to get your information, please refresh this page.
     else
-      form(action='info',method='post')
+      form(action='info' method='post')
         label PHONE
-        input(type="text", name="phone" value="#{user_info.contact.phone}")
+        input(type="text" name="phone" value="#{user_info.contact.phone}")
         label EMAIL
-        input(type="text", name="email" value="#{user_info.contact.email}")
+        input(type="text" name="email" value="#{user_info.contact.email}")
         label(for="bio") BIO
         textarea(name="bio")
           | #{user_info.bio}
-        input(type="submit", name="save" value="SAVE")
+        input(type="submit" name="save" value="SAVE")
       if error_message != ""
         div.error-message
           | #{error_message}

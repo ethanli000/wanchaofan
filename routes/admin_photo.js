@@ -9,42 +9,12 @@ router.get('/', function (req, res) {
     res.redirect('/admin/login');
     return;
   }
-  res.redirect('/admin/info');
+  res.render('admin/series', { section: "series", title: 'Wan Chaofan - admin/series' });
 });
 
-router.get('/login', function (req, res) {
-  var sess = req.session;
-  if (sess.login_flg) {
-    res.redirect('/admin/');
-    return;
-  }
-  res.render('admin/login', { title: 'Wan Chaofan - admin login' });
-});
 
-router.post('/login', function (req, res) {
-  var sess = req.session;
-  if (req.body.login) {
-    admin.login(req.body.user, req.body.pass, function (result) {
-      if (result === "error") {
-        res.render('admin/login', { title: 'Wan Chaofan - admin login', message: 'login failed unexpectedly' });
-        return;
-      }
-      if (result === "failed") {
-        res.render('admin/login', { title: 'Wan Chaofan - admin login', message: 'username/password wrong' });
-        return;
-      }
-      if (result === "success") {
-        sess.login_flg = 1;
-        res.redirect('/admin/info');
-        return;
-      }
-    });
-  } else {
-    res.render('admin/login', { title: 'Wan Chaofan - admin login', message: 'login failed without push login button' });
-  }
-});
 
-router.get('/info', function (req, res) {
+router.get('/', function (req, res) {
   var sess = req.session;
   if (!sess.login_flg) {
     res.redirect('/admin/login');
