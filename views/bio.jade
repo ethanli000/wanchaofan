@@ -8,11 +8,14 @@ block side
   include includes/menu
 
 block main
-  div.bio
-    div.bio-title
-      | 宛 超凡
-    div.bio-contact
-      | PHONE: #{user_info.contact.phone} <br/>
-      | EMAIL: #{user_info.contact.email} <br/>
-    div.bio-info
-      | #{user_info.bio}
+  if !user_info
+    div.error-message
+      |Oops! Please try to refresh this page again.<br/>Thanks.
+  else
+    div.bio
+      div.bio-title
+        | 宛 超凡
+      div.bio-contact
+        | PHONE: #{user_info.contact.phone} <br/>EMAIL: #{user_info.contact.email} <br/>
+      div.bio-info
+        | #{user_info.bio}
