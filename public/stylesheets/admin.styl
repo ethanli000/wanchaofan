@@ -65,31 +65,72 @@
   width: 700px
   min-width: 400px
 
-.series, .new-series
+.series, .new-series, .edit-series
   position: relative
   display: block
   overflow: hidden
   width: auto
   margin-right: 30px
-  input[type="text"]
-    width: 100%
+  margin-bottom: 3px
+  span.name
+    display: inline-block
+  input[type="text"], span.name
+    width: 98%
     border: none
-    padding: 5px
+    padding: 7px 1%
     font-size: 15px
   input[type="button"]
     position: absolute
-    top: 3px
-    right: 4px
+    top: 4px
+    right: 5px
     display: inline-block
     padding: 4px 5px
-    font-size: 1.1em
-  
+    font-size: 1.3em
+  input[type="button"].disabled
+    background-color: #999
+    text-decoration: none
+    border: none
+    color: #fbfbfb
+
+.series
+  input[name="delete"]
+    background-color: #A33
+    text-decoration: none
+    border: none
+    color: #fbfbfb
+  input[name="show"]
+    right: 70px
+    background-color: #49D
+    text-decoration: none
+    border: none
+    color: #fbfbfb
+  input[name="hide"]
+    right: 70px
+    background-color: #fbfbfb
+    text-decoration: none
+    border: solid 1px #49D
+    padding: 3px 4px
+    color: #49D
+
+.edit-series
+  input[name="save"]
+    right: 28px
+    background-color: #395
+    text-decoration: none
+    border: none
+    color: #fbfbfb
+  input[name="cancel"]
+    background-color: #AAA
+    text-decoration: none
+    border: none
+    color: #fbfbfb
+
 .new-series
-  border: solid 1px #151
- 
-#add-series
-  background-color: #395
-  text-decoration: none
-  border: none
-  color: #fbfbfb
+  //border: solid 1px #151
+  margin-top: 10px
+  input[name="add"]
+    background-color: #CB2
+    text-decoration: none
+    border: none
+    color: #fbfbfb
   

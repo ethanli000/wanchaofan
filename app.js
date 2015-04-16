@@ -12,7 +12,7 @@ var photo = require('./routes/photo');
 var bio = require('./routes/bio');
 
 var admin = require('./routes/admin');
-var admin_photo = require('./routes/admin_photo');
+var admin_series = require('./routes/admin_series');
 
 var app = express();
 
@@ -38,7 +38,7 @@ app.use('/index', cover);
 app.use('/photo', photo);
 app.use('/bio', bio);
 app.use('/admin', admin);
-app.use('/admin/series', admin_photo);
+app.use('/admin/series', admin_series);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

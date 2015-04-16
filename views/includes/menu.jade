@@ -1,8 +1,10 @@
 ul
   if list
-    li(class=(section=="list_name")?"selected":"")
-      a(href="/admin/info")
-        | LIST
+    each series in list
+      if series.is_show
+        li(class=(section==series.name)?"selected":"")
+          a(href="/photo/#{series.series_key}")
+            | #{series.name}
   li(class=(section=="bio")?"selected":"")
     a#bio(href="/bio")
       | BIO

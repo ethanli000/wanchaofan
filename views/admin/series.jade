@@ -14,8 +14,17 @@ block main
       div.error-message error: failed to get series list, please refresh this page.
     else
       div.series-list
+        each series in series_list
+          div.series.clearfix
+            input(type="hidden" name="key" value="#{series.series_key}")
+            span.name #{series.name}
+            if series.is_show
+              input.series-botton(type="button" name="hide" value="HIDE")
+            else
+              input.series-botton(type="button" name="show" value="SHOW")
+            input.series-botton(type="button" name="delete" value="DELETE")
         div.new-series.clearfix
-          input#name-series-name(type="text" name="new-series-name" placeholder="new series name")
+          input#new-series-name(type="text" name="new-series-name" placeholder="new series name")
           input#add-series.series-botton(type="button" name="add" value="ADD")
       if error_message != ""
         div.error-message

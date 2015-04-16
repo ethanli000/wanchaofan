@@ -9,7 +9,7 @@ Admin.prototype.login = function (user, pass, display) {
   var info = this.db.collection('info');
   info.findOne({}, function (err, site_info) {
     console.log(err);
-    console.log(site_info);
+    //console.log(site_info);
     if (!err && site_info) {
       if (user !== site_info.admin_id || pass !== site_info.password) {
         display("failed");

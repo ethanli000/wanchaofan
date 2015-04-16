@@ -3,12 +3,18 @@ var router = express.Router();
 var path = require('path');
 var admin = require(path.join(__dirname, '../modules/admin'));
 
+router.use(function checkLogin(req, res, next) {
+  // var sess = req.session;
+  // if (req.url != "/login") {
+  //   if (!sess.login_flg) {
+  //     res.redirect('/admin/login');
+  //     return;
+  //   }
+  // }
+  next();
+});
+
 router.get('/', function (req, res) {
-  var sess = req.session;
-  if (!sess.login_flg) {
-    res.redirect('/admin/login');
-    return;
-  }
   res.redirect('/admin/info');
 });
 
@@ -45,23 +51,12 @@ router.post('/login', function (req, res) {
 });
 
 router.get('/info', function (req, res) {
-  var sess = req.session;
-  if (!sess.login_flg) {
-    res.redirect('/admin/login');
-    return;
-  }
-
   admin.getInfo(function (user_info) {
     res.render('admin/info', { section: "info", title: 'Wan Chaofan - admin/info', user_info: user_info });
   });
 });
 
 router.post('/info', function (req, res) {
-  var sess = req.session;
-  if (!sess.login_flg) {
-    res.redirect('/admin/login');
-    return;
-  }
   if (req.body.save) {
     admin.getInfo(function (update_data) {
       update_data.contact.phone = req.body.phone;
