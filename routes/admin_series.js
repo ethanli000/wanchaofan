@@ -4,11 +4,11 @@ var path = require('path');
 var series = require(path.join(__dirname, '../modules/series'));
 
 router.use(function checkLogin(req, res, next) {
-  // var sess = req.session;
-  // if (!sess.login_flg) {
-  //   res.redirect('/admin/login');
-  //   return;
-  // }
+  var sess = req.session;
+  if (!sess.login_flg) {
+    res.redirect('/admin/login');
+    return;
+  }
   next();
 });
 

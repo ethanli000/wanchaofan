@@ -33,6 +33,13 @@ app.use(require("stylus").middleware({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(function init(req, res, next) {
+  res.locals.makeUrl = function (str) {
+    return str.replace(/\s+/g, '-').toLowerCase();
+  };
+  next();
+});
+
 app.use('/', front);
 app.use('/index', cover);
 app.use('/photo', photo);

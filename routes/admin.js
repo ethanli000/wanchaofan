@@ -4,13 +4,13 @@ var path = require('path');
 var admin = require(path.join(__dirname, '../modules/admin'));
 
 router.use(function checkLogin(req, res, next) {
-  // var sess = req.session;
-  // if (req.url != "/login") {
-  //   if (!sess.login_flg) {
-  //     res.redirect('/admin/login');
-  //     return;
-  //   }
-  // }
+  var sess = req.session;
+  if (req.url != "/login") {
+    if (!sess.login_flg) {
+      res.redirect('/admin/login');
+      return;
+    }
+  }
   next();
 });
 

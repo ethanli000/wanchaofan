@@ -2,8 +2,8 @@ ul
   if list
     each series in list
       if series.is_show
-        li(class=(section==series.name)?"selected":"")
-          a(href="/photo/#{series.series_key}")
+        li(class=(section==locals.makeUrl(series.name))?"selected":"")
+          a(href="/photo/#{locals.makeUrl(series.name)}")
             | #{series.name}
   li(class=(section=="bio")?"selected":"")
     a#bio(href="/bio")
