@@ -61,20 +61,22 @@
     height:20px
     font-size: 1.3em
 
-.series-list
-  width: 700px
-  min-width: 400px
+.series-form, .photo-form
+  width: 800px
+  max-width: 95%
+  margin-right: 5%
 
 .series, .new-series, .edit-series
   position: relative
   display: block
   overflow: hidden
   width: auto
-  margin-right: 30px
   margin-bottom: 3px
   span.name
     display: inline-block
-  input[type="text"], span.name
+    font-size: 15px
+    padding: 7px 1%
+  input[type="text"]
     width: 98%
     border: none
     padding: 7px 1%
@@ -93,6 +95,19 @@
     color: #fbfbfb
 
 .series
+  a.photo_count
+    display: inline-block
+    width: 22px
+    height: 16px
+    padding: 4px 0px 2px 0px
+    -moz-border-radius: 11px
+    -webkit-border-radius: 11px
+    border-radius: 11px
+    background: #F55
+    color: #fbfbfb
+    font-size: 1.3em
+    text-decoration: none
+    text-align: center
   input[name="delete"]
     background-color: #A33
     text-decoration: none
@@ -133,4 +148,15 @@
     text-decoration: none
     border: none
     color: #fbfbfb
+
+
+.series-title
+  padding: 3px 0
+  font-size: 1.4em
+
+.new-photo
+  margin-top:15px
   
+.photo-list
+  margin-top:15px
+  font-size: 1.3em

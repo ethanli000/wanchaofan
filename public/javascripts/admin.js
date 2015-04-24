@@ -21,6 +21,10 @@ $(document).on("click", "#add-series", function () {
     $(".error-message").text("please fill a series name before add.");
     return false;
   }
+  var check = confirm('Do you really want to add a series "' + name + '"?');
+  if (!check) {
+    return false;
+  }
   $.ajax({
     async: true,
     method: "POST",
@@ -52,8 +56,8 @@ $(document).on("click", "#add-series", function () {
 
 $(document).on("click", 'span.name', function () {
   if (global_editing) {
-    //closeEdit();
-    $("#edit-series-name").focus();
+    closeEdit();
+    //$("#edit-series-name").focus();
     return false;
   }
   global_editing = 1;
@@ -74,6 +78,10 @@ $(document).on("click", '#new-series-name', function () {
 
 $(document).on("click", 'input[name="delete"]', function () {
   var series_key = $(this).parents('.series').children('input[name="key"]').val();
+  var check = confirm('Do you really want to delete this series?');
+  if (!check) {
+    return false;
+  }
   $.ajax({
     async: true,
     context: this,

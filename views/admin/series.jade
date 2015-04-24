@@ -17,6 +17,7 @@ block main
         each series in series_list
           div.series.clearfix
             input(type="hidden" name="key" value="#{series.series_key}")
+            a.photo_count(href="/admin/series/#{series.series_key}") #{series.photo_count}
             span.name #{series.name}
             if series.is_show
               input.series-botton(type="button" name="hide" value="HIDE")

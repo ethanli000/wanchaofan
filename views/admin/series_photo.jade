@@ -1,0 +1,29 @@
+extends ../layout
+
+block head
+  include includes/admin_head
+
+block side
+  include includes/admin_menu
+
+block main
+  div.admin-title
+    | EDIT PHOTOS
+  div.photo-form
+    if series == "error"
+      div.error-message error: failed to get series list, please refresh this page.
+    else
+      div.series-title #{series.name}
+      div.new-photo
+        input#new-photo(type="file" name="new-photo")
+        input#add-photo.photo-botton(type="button" name="add" value="ADD")
+      div.photo-list
+        if photo_list
+          each photo in photo_list
+            div.photo
+              image(photo.url)
+        else
+          | no photo in this series yet
+      if error_message != ""
+        div.error-message
+          | #{error_message}

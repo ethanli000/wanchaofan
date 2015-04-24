@@ -12,6 +12,21 @@ router.use(function checkLogin(req, res, next) {
   next();
 });
 
+router.param('key', function (req, res, next, series_key) {
+  var display = { title: 'Wan Chaofan - admin/series', section: "series" };
+  series.getInfo(series_key, function (result) {
+    if (result !== "error") {
+      display.series = result;
+      req.display = display;
+      //get photo_list
+      next();
+    } else {
+      res.redirect('/404');
+    }
+  });
+
+});
+
 router.get('/', function (req, res) {
   series.getList(function (series_list) {
     res.render('admin/series', { section: "series", title: 'Wan Chaofan - admin/series', series_list: series_list });
@@ -48,6 +63,10 @@ router.post('/edit', function (req, res) {
   } else {
     res.json({ result: "error", message: "no selected series or data incorrect" });
   }
+});
+
+router.get('/:key', function (req, res) {
+  res.render('admin/series_photo', req.display);
 });
 
 module.exports = router;
