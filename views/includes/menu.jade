@@ -5,6 +5,6 @@ ul
         li(class=(section==locals.makeUrl(series.name))?"selected":"")
           a(href="/photo/#{locals.makeUrl(series.name)}")
             | #{series.name}
-  li(class=(section=="bio")?"selected":"")
+  li(class=(section=="bio")?"bio selected":"bio")
     a#bio(href="/bio")
       | BIO

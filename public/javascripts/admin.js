@@ -6,6 +6,9 @@ var closeEdit = function () {
   $('.edit-series').remove();
   $('.is-edit').removeClass("is-edit").show();
 };
+$.fn.hasExtension = function (exts) {
+  return (new RegExp('(' + exts.join('|').replace(/\./g, '\\.') + ')$')).test($(this).val().toLowerCase());
+};
 
 $(document).ready(function () {
 });
@@ -209,3 +212,54 @@ $(document).on("click", 'input[name="cancel"]', function () {
 });
 
 
+/*
+ *  for photo edit page
+ */
+
+// $(document).on("change", 'input[name="new-photo"]', function () {
+//   if (!$(this).hasExtension(['.jpg', '.png', '.gif'])) {
+//     alert("please upload a jpg/png/gif file");
+//     return false;
+//   }
+//   var file_path = $(this).val();
+//   var file_name = file_path.split("\\").slice(-1).pop();
+//   //alert(this.files[0].name);
+//   var check = confirm('Do you really want to add ' + file_name + ' ?');
+//   if (!check) {
+//     return false;
+//   }
+// });
+
+$(document).on("click", 'input[name="add-photo"]', function () {
+  var file_path = $('input[name="add-photo-url"]').val();
+  if (!file_path || file_path === "") {
+    $(".error-message").text("please fill a link before add.");
+    return false;
+  }
+  $.ajax({
+    async: true,
+    context: this,
+    method: "POST",
+    dataType: "json",
+    url: "add",
+    data: {file_path: file_path},
+    beforeSend: function () {
+      $(this).attr("disabled", "disabled").addClass("disabled");
+    },
+    success: function (res) {
+      if (res.result === "success") {
+        var new_photo = '<div class="photo"><img src="';
+        new_photo += res.data.url + '" /></div>';
+        $(".photo-list").append(new_photo);
+      } else {
+        $(".error-message").text("DELETE FAILED: " + res.message);
+      }
+    },
+    error: function () {
+      $(".error-message").text("DELETE FAILED: server error!");
+    },
+    complete: function () {
+      $(this).removeAttr("disabled").removeClass("disabled");
+    }
+  });
+});

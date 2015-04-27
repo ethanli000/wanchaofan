@@ -18,6 +18,8 @@ html,body
 body
   text-align: center
   font: 10px $contentFont
+  a
+    //cursor: url('/images/cursor/location-arrow-outline.svg'), pointer
 
 .grand-container
   display: inline-block
@@ -61,7 +63,9 @@ body
       &:hover
         color: darken($sideMenuTextColor,75%)
     li.selected a
-      color: darken($sideMenuTextColor,75%)  
+      color: darken($sideMenuTextColor,75%)
+    li.bio
+      margin-top: 15px
   
 .main-container
   position: relative

@@ -1,47 +1,63 @@
 var Mongolian = require("mongolian");
 
 // Constructor
-function Series() {
+function Photo() {
   this.db = new Mongolian("mongodb://wcfadmin:8ffae097a0@ds029960.mongolab.com:29960/wanchaofan");
 }
 
-Series.prototype.getList = function (next) {
-  var series = this.db.collection('series');
-  series.find({ is_delete: 0 }, {_id: 0, create_time: 0}).toArray(function (err, series_list) {
-    if (!err && series_list) {
-      //console.log(series_list);
-      next(series_list);
+Photo.prototype.getList = function (series_key, next) {
+  var photo = this.db.collection('photo');
+  photo.find({ is_delete: 0, series_key: parseInt(series_key, 10) }, {_id: 0, create_time: 0}).sort({ photo_sort: 1 }).toArray(function (err, photo_list) {
+    if (!err && photo_list) {
+      //console.log(photo_list);
+      next(photo_list);
     } else {
-      console.log("get series list error: " + JSON.stringify(err));
+      console.log("get photo list error: " + JSON.stringify(err));
       next("error");
     }
   });
 };
 
-Series.prototype.getInfo = function (series_key, next) {
-  var series = this.db.collection('series');
-  console.log(series_key);
-  series.findOne({ series_key: parseInt(series_key, 10) }, function (err, series_info) {
-    console.log(series_info);
-    if (!err && series_info) {
-      next(series_info);
+Photo.prototype.getInfo = function (series_key, photo_sort, next) {
+  var photo = this.db.collection('photo');
+  //console.log(series_key);
+  photo.findOne({ series_key: parseInt(series_key, 10), photo_sort: parseInt(photo_sort, 10),  }, function (err, photo_info) {
+    if (!err && photo_info) {
+      next(photo_info);
     } else {
-      console.log("get series error: " + JSON.stringify(err));
+      console.log("get photo url error: " + JSON.stringify(err));
       next("error");
     }
   });
 };
 
-Series.prototype.add = function (series_name, next) {
-  var series = this.db.collection('series');
+Photo.prototype.add = function (series_key, sort, file_path, next) {
+  //console.log(series_key);
+  //console.log(file_path);
+  var photo = this.db.collection('photo');
   var counter = this.db.collection('counter');
-  counter.findAndModify({query: { _id: "series_key" }, update: { $inc: { seq: 1 } }, new: true, upsert: true }, function (err, key) {
+  var series = this.db.collection('series');
+  counter.findAndModify({query: { _id: "photo_key" }, update: { $inc: { seq: 1 } }, new: true, upsert: true }, function (err, key) {
     if (!err && key) {
-      var new_data = {series_key: key.seq, name: series_name, photo_count: 0, is_show: 1, is_delete: 0, create_time: Math.floor(new Date() / 1000)};
-      series.findAndModify({query: { series_key: key.seq }, update: new_data, new: true, upsert: true }, function (err, new_series) {
-        if (!err && new_series) {
-          //console.log(new_series);
-          next({result: "success", data: new_series});
+      var new_data = {
+          photo_key: key.seq,
+          series_key: parseInt(series_key, 10),
+          photo_sort: parseInt(sort, 10) + 1,
+          url: file_path,
+          is_show: 1,
+          is_delete: 0,
+          create_time: Math.floor(new Date() / 1000)
+        };
+      photo.findAndModify({query: { photo_key: key.seq }, update: new_data, new: true, upsert: true }, function (err, new_photo) {
+        if (!err && new_photo) {
+          console.log(new_photo);
+          // update series photo count
+          series.findAndModify({query: { series_key: parseInt(series_key, 10) }, update: { $inc: { photo_count: 1 } }, new: true, upsert: true }, function (err, series) {
+            if (err || !series) {
+              console.log("update series error: " + JSON.stringify(err));
+            }
+            next({result: "success", data: new_photo});
+          });
         } else {
           console.log("add series error: " + JSON.stringify(err));
           next({result: "error", message: "add error"});
@@ -54,17 +70,17 @@ Series.prototype.add = function (series_name, next) {
   });
 };
 
-Series.prototype.update = function (series_key, update_data, next) {
-  var series = this.db.collection('series');
-  series.findAndModify({query: { series_key: parseInt(series_key, 10) }, update: {$set: update_data}, upsert: false, new: true }, function (err, new_data) {
-    if (!err && new_data) {
-      //console.log("new data: " + JSON.stringify(new_data));
-      next({result: "success"});
-    } else {
-      console.log("update series error: " + JSON.stringify(err));
-      next({result: "error", message: "update data error"});
-    }
-  });
-};
+// Photo.prototype.update = function (series_key, update_data, next) {
+//   var series = this.db.collection('series');
+//   series.findAndModify({query: { series_key: parseInt(series_key, 10) }, update: {$set: update_data}, upsert: false, new: true }, function (err, new_data) {
+//     if (!err && new_data) {
+//       //console.log("new data: " + JSON.stringify(new_data));
+//       next({result: "success"});
+//     } else {
+//       console.log("update series error: " + JSON.stringify(err));
+//       next({result: "error", message: "update data error"});
+//     }
+//   });
+// };
 
-module.exports = new Series();
+module.exports = new Photo();

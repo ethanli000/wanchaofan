@@ -8,5 +8,14 @@ block side
   include includes/menu
 
 block main
-  div.gallery
-    | show a picture
+  if(photo)
+    div.gallery
+      div.go-left
+      div.photo
+        image(src="#{photo.url}")
+        div.photo-count
+          |#{photo.photo_sort}/#{series.photo_count}
+      div.go-right
+  else
+    div.no-photo
+      | NO PHOTO YET

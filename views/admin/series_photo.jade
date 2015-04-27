@@ -15,13 +15,14 @@ block main
     else
       div.series-title #{series.name}
       div.new-photo
-        input#new-photo(type="file" name="new-photo")
-        input#add-photo.photo-botton(type="button" name="add" value="ADD")
+        input(type="text" name="add-photo-url" placeholder="www.domain.com/photo/photo1.jpg")
+        input(type="button" name="add-photo" value="ADD NEW PHOTO")
+        //input#new-photo(type="file" name="new-photo")
       div.photo-list
         if photo_list
           each photo in photo_list
             div.photo
-              image(photo.url)
+              image(src="#{photo.url}")
         else
           | no photo in this series yet
       if error_message != ""

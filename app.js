@@ -33,9 +33,9 @@ app.use(require("stylus").middleware({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(function init(req, res, next) {
+app.use(function (req, res, next) {
   res.locals.makeUrl = function (str) {
-    return str.replace(/\s+/g, '-').toLowerCase();
+    return String(str).replace(/\s+/g, '-').toLowerCase();
   };
   next();
 });

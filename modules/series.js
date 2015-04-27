@@ -20,9 +20,9 @@ Series.prototype.getList = function (next) {
 
 Series.prototype.getInfo = function (series_key, next) {
   var series = this.db.collection('series');
-  console.log(series_key);
+  //console.log(series_key);
   series.findOne({ series_key: parseInt(series_key, 10) }, function (err, series_info) {
-    console.log(series_info);
+    //console.log(series_info);
     if (!err && series_info) {
       next(series_info);
     } else {
