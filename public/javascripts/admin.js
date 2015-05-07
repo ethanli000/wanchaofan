@@ -1,5 +1,7 @@
 var global_editing = 0;
 var global_current_editing_title = "";
+var warning_icon = '<img class="warning-img" src="/images/icon/warning-outline.svg" />';
+
 var closeEdit = function () {
   global_editing = 0;
   global_current_editing_title = "";

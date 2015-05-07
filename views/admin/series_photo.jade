@@ -13,9 +13,10 @@ block main
     if series == "error"
       div.error-message error: failed to get series list, please refresh this page.
     else
-      div.series-title #{series.name}
+      div.series-title 
+        a(href="/photo/#{locals.makeUrl(series.name)}" target="_blank") #{series.name}
       div.new-photo
-        input(type="text" name="add-photo-url" placeholder="www.domain.com/photo/photo1.jpg")
+        input(type="text" name="add-photo-url" placeholder="exp: www.domain.com/photo/photo1.jpg")
         input(type="button" name="add-photo" value="ADD NEW PHOTO")
         //input#new-photo(type="file" name="new-photo")
       div.photo-list

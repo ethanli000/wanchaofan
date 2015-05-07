@@ -11,7 +11,7 @@ var init = function () {
   if ($("li.selected").prev().length > 0) {
     prev_series = $("li.selected").prev().children("a").attr("href");
   }
-} 
+};
 
 var setSize = function () {
   var gallery_height = $(".gallery").height();
