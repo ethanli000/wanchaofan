@@ -14,7 +14,11 @@ block main
       div.photo
         image(src="#{photo.url}")
         div.photo-count
-          |#{photo.photo_sort}/#{series.photo_count}
+          span.photo-sort
+            |#{photo.photo_sort}
+          | / 
+          span.photo-max
+            |#{series.photo_count}
       div.go-right
   else
     div.no-photo

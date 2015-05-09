@@ -2,6 +2,8 @@ var photo_ratio = 1;
 var prev_series = "";
 var next_series = "";
 var current_sort = 1;
+var max_sort = 1;
+var is_img_loading = 0;
 
 var init = function () {
   photo_ratio = $(".photo img").width() / $(".photo img").height();
@@ -11,6 +13,8 @@ var init = function () {
   if ($("li.selected").prev().length > 0) {
     prev_series = $("li.selected").prev().children("a").attr("href");
   }
+  current_sort = parseInt($("span.photo-sort").text(), 10);
+  max_sort = parseInt($("span.photo-max").text(), 10);
 };
 
 var setSize = function () {
@@ -41,6 +45,34 @@ var setSize = function () {
   return true;
 };
 
+var update_img = function () {
+  //alert(current_sort);
+  $.ajax({
+    async: true,
+    method: "POST",
+    dataType: "json",
+    url: window.location.href,
+    data: {sort: current_sort},
+    beforeSend: function () {
+      is_img_loading = 1;
+    },
+    success: function (res) {
+      if (res.result === "success") {
+        $(".photo img").attr("src", res.data.url);
+        $("span.photo-sort").text(current_sort);
+      } else {
+        //$(".error-message").text("ADD FAILED: " + res.message);
+      }
+    },
+    error: function () {
+      //$(".error-message").text("ADD FAILED: server error!");
+    },
+    complete: function () {
+      is_img_loading = 0;
+    },
+  });
+};
+
 $(window).load(function () {
   //alert($(".photo img").width());
   init();
@@ -53,50 +85,33 @@ $(window).on("resize", function () {
 });
 
 $(document).on("click", ".go-left", function () {
-  alert("left");
+  if(is_img_loading) {
+    return false;
+  }
+  if(current_sort === 1) {
+    if(prev_series !== "") {
+      window.location.href = prev_series;
+    }
+    return false;
+  }
+
+  //update img file
+  current_sort--;
+  update_img();
 });
 
 $(document).on("click", ".go-right", function () {
-  alert("right");
+  if(is_img_loading) {
+    return false;
+  }
+  if(current_sort === max_sort) {
+    if(next_series !== "") {
+      window.location.href = next_series;
+    }
+    return false;
+  }
+
+  //update img file
+  current_sort++;
+  update_img();
 });
-
-// $(document).on("click", "#add-series", function () {
-//   var name = $("#new-series-name").val();
-//   $(".error-message").text("");
-//   if (!name || name === "") {
-//     $(".error-message").text("please fill a series name before add.");
-//     return false;
-//   }
-//   var check = confirm('Do you really want to add a series "' + name + '"?');
-//   if (!check) {
-//     return false;
-//   }
-//   $.ajax({
-//     async: true,
-//     method: "POST",
-//     dataType: "json",
-//     url: "/admin/series/add",
-//     data: {name: name},
-//     beforeSend: function () {
-//       $("#add-series").attr("disabled", "disabled").addClass("disabled");
-//     },
-//     success: function (res) {
-//       if (res.result === "success") {
-//         var new_series = '<div class="series clearfix"><input type="hidden" value="';
-//         new_series += res.data.series_key + '" name="key"><span class="name">';
-//         new_series += res.data.name + '</span><input type="button" name="hide" value="HIDE" class="series-botton"><input type="button" name="delete" value="DELETE" class="series-botton"></div>';
-//         $(".new-series").before(new_series);
-//         $("#new-series-name").val("");
-//       } else {
-//         $(".error-message").text("ADD FAILED: " + res.message);
-//       }
-//     },
-//     error: function () {
-//       $(".error-message").text("ADD FAILED: server error!");
-//     },
-//     complete: function () {
-//       $("#add-series").removeAttr("disabled").removeClass("disabled");
-//     },
-//   });
-// });
-

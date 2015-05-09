@@ -26,7 +26,7 @@ router.param('name', function (req, res, next, name) {
     }
   });
   if (!series_key) {
-    res.redirect('/404');
+    res.redirect('/series_not_found');
   }
 });
 
@@ -36,12 +36,27 @@ router.get('/', function (req, res) {
 
 router.get('/:name', function (req, res) {
   photo.getInfo(req.display.series.series_key, 1, function (photo_info) {
-    console.log(photo_info);
+    //console.log(photo_info);
     if (photo_info.url) {
       req.display.photo = photo_info;
     }
     res.render('photo', req.display);
   });
+});
+
+router.post('/:name', function (req, res) {
+  if (req.body.sort) {
+    console.log(req.body.sort);
+    photo.getInfo(req.display.series.series_key, req.body.sort, function (photo_info) {
+      if (photo_info !== "error") {
+        res.json({ result: "success", data: photo_info });
+      } else {
+        res.json({ result: "error", message: "no photo" });
+      }
+    });
+  } else {
+    res.json({ result: "error", message: "no sort" });
+  }
 });
 
 module.exports = router;
