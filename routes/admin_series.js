@@ -4,7 +4,7 @@ var path = require('path');
 var series = require(path.join(__dirname, '../modules/series'));
 var photo = require(path.join(__dirname, '../modules/photo'));
 
-var test_flg = 1;
+var test_flg = 0;
 
 router.use(function checkLogin(req, res, next) {
   var sess = req.session;

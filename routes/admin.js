@@ -3,7 +3,7 @@ var router = express.Router();
 var path = require('path');
 var admin = require(path.join(__dirname, '../modules/admin'));
 
-var test_flg = 1;
+var test_flg = 0;
 
 router.use(function checkLogin(req, res, next) {
   var sess = req.session;
