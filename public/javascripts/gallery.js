@@ -33,7 +33,7 @@ var setSize = function () {
     $(".photo img").width(gallery_height * img_space_ratio * photo_ratio);
     $(".photo img").css("margin-top", gallery_height * (0.5 - img_space_ratio / 2));
     $(".photo-count").width(gallery_height * img_space_ratio * photo_ratio);
-    $(".photo-count").css("bottom", gallery_height * (0.25 - img_space_ratio / 4));
+    $(".photo-count").css("bottom", gallery_height * (0.5 - img_space_ratio / 2) - 30);
   } else {
     //80% width
     //$(".photo").height(gallery_width * 0.8 / photo_ratio);
@@ -42,7 +42,7 @@ var setSize = function () {
     $(".photo img").width(gallery_width * img_space_ratio);
     $(".photo img").css("margin-top", (gallery_height - gallery_width * img_space_ratio / photo_ratio) / 2);
     $(".photo-count").width(gallery_width * img_space_ratio);
-    $(".photo-count").css("bottom", (gallery_height - gallery_width * img_space_ratio / photo_ratio) / 4);
+    $(".photo-count").css("bottom", (gallery_height - gallery_width * img_space_ratio / photo_ratio) / 2 - 30);
   }
   return true;
 };
@@ -119,5 +119,38 @@ $(document).on("click", ".go-right", function () {
 
   //update img file
   current_sort++;
+  update_img();
+});
+
+//mobile swipe
+$(document).on("swipeleft", ".gallery", function () {
+  if(is_img_loading) {
+    return false;
+  }
+  if(current_sort === max_sort) {
+    if(next_series !== "") {
+      window.location.href = next_series;
+    }
+    return false;
+  }
+
+  //update img file
+  current_sort++;
+  update_img();
+});
+
+$(document).on("swiperight", ".gallery", function () {
+  if(is_img_loading) {
+    return false;
+  }
+  if(current_sort === 1) {
+    if(prev_series !== "") {
+      window.location.href = prev_series;
+    }
+    return false;
+  }
+
+  //update img file
+  current_sort--;
   update_img();
 });
