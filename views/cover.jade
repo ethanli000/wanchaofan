@@ -1,0 +1,17 @@
+extends layout
+
+block head
+  include includes/head
+  link(rel='stylesheet', href='/stylesheets/main.css')
+
+block side
+  include includes/menu
+
+block main
+  if(user_info.cover_photo_url)
+    div.gallery
+      div.photo
+        image(src="#{user_info.cover_photo_url}")
+  else
+    div.no-photo
+      | NO PHOTO YET

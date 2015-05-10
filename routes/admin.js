@@ -64,6 +64,7 @@ router.post('/info', function (req, res) {
       update_data.contact.phone = req.body.phone;
       update_data.contact.email = req.body.email;
       update_data.bio = req.body.bio;
+      update_data.cover_photo_url = req.body.photo;
       admin.changeInfo(update_data, function (user_info) {
         var error_message = "";
         if (user_info === "error") {

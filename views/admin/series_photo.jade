@@ -2,6 +2,7 @@ extends ../layout
 
 block head
   include includes/admin_head
+  script(src='/javascripts/admin.js')
 
 block side
   include includes/admin_menu
@@ -23,6 +24,8 @@ block main
         if photo_list
           each photo in photo_list
             div.photo
+              div.photo-sort
+                | #{photo.photo_sort}
               image(src="#{photo.url}")
         else
           | no photo in this series yet

@@ -13,6 +13,15 @@ $.fn.hasExtension = function (exts) {
 };
 
 $(document).ready(function () {
+  var photo_ratio = 1.5;
+  var width = $(".photo img").width();
+  $(".photo").height(width / photo_ratio); 
+  //$(".photo img").load(
+  // if ($(".photo img").length > 0) {
+  //   $(".photo img").each(function () {
+      
+  //   });
+  // }
 });
 
 $(document).on("click", this, function () {
@@ -262,6 +271,7 @@ $(document).on("click", 'input[name="add-photo"]', function () {
     },
     complete: function () {
       $(this).removeAttr("disabled").removeClass("disabled");
+      $('input[name="add-photo-url"]').val("");
     }
   });
 });

@@ -18,6 +18,8 @@ block main
         input(type="text" name="phone" value="#{user_info.contact.phone}")
         label EMAIL
         input(type="text" name="email" value="#{user_info.contact.email}")
+        label COVER PHOTO
+        input(type="text" name="photo" value="#{user_info.cover_photo_url}")
         label(for="bio") BIO
         textarea(name="bio")
           | #{user_info.bio}

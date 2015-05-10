@@ -1,9 +1,11 @@
-var photo_ratio = 1;
+var is_img_loading = 0;
+var img_space_ratio = 0.8;
 var prev_series = "";
 var next_series = "";
 var current_sort = 1;
 var max_sort = 1;
-var is_img_loading = 0;
+var photo_ratio = 1;
+
 
 var init = function () {
   photo_ratio = $(".photo img").width() / $(".photo img").height();
@@ -26,21 +28,21 @@ var setSize = function () {
   if (photo_ratio <= gallery_radio) {
     //80% height
     //$(".photo").height(gallery_height * 0.8);
-    $(".photo").width(gallery_height * 0.8 * photo_ratio);
-    $(".photo img").height(gallery_height * 0.8);
-    $(".photo img").width(gallery_height * 0.8 * photo_ratio);
-    $(".photo img").css("margin-top", gallery_height * 0.1);
-    $(".photo-count").width(gallery_height * 0.8 * photo_ratio);
-    $(".photo-count").css("bottom", gallery_height * 0.05);
+    $(".photo").width(gallery_height * img_space_ratio * photo_ratio);
+    $(".photo img").height(gallery_height * img_space_ratio);
+    $(".photo img").width(gallery_height * img_space_ratio * photo_ratio);
+    $(".photo img").css("margin-top", gallery_height * (0.5 - img_space_ratio / 2));
+    $(".photo-count").width(gallery_height * img_space_ratio * photo_ratio);
+    $(".photo-count").css("bottom", gallery_height * (0.25 - img_space_ratio / 4));
   } else {
     //80% width
     //$(".photo").height(gallery_width * 0.8 / photo_ratio);
-    $(".photo").width(gallery_width * 0.8);
-    $(".photo img").height(gallery_width * 0.8 / photo_ratio);
-    $(".photo img").width(gallery_width * 0.8);
-    $(".photo img").css("margin-top", (gallery_height - gallery_width * 0.8 / photo_ratio) / 2);
-    $(".photo-count").width(gallery_width * 0.8);
-    $(".photo-count").css("bottom", (gallery_height - gallery_width * 0.8 / photo_ratio) / 4);
+    $(".photo").width(gallery_width * img_space_ratio);
+    $(".photo img").height(gallery_width * img_space_ratio / photo_ratio);
+    $(".photo img").width(gallery_width * img_space_ratio);
+    $(".photo img").css("margin-top", (gallery_height - gallery_width * img_space_ratio / photo_ratio) / 2);
+    $(".photo-count").width(gallery_width * img_space_ratio);
+    $(".photo-count").css("bottom", (gallery_height - gallery_width * img_space_ratio / photo_ratio) / 4);
   }
   return true;
 };
@@ -58,7 +60,11 @@ var update_img = function () {
     },
     success: function (res) {
       if (res.result === "success") {
-        $(".photo img").attr("src", res.data.url);
+        $("<img/>").attr("src", res.data.url).load(function () {
+          photo_ratio = this.width / this.height;
+          setSize();
+          $(".photo img").attr("src", res.data.url);
+        });
         $("span.photo-sort").text(current_sort);
       } else {
         //$(".error-message").text("ADD FAILED: " + res.message);
