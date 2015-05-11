@@ -26,12 +26,16 @@ router.param('name', function (req, res, next, name) {
     }
   });
   if (!series_key) {
-    res.redirect('/series_not_found');
+    res.redirect('not_found');
   }
 });
 
 router.get('/', function (req, res) {
   res.redirect('/photo/' + res.locals.makeUrl(req.display.list[0].name));
+});
+
+router.get('/not_found', function (req, res) {
+  res.render('not_found', req.display);
 });
 
 router.get('/:name', function (req, res) {

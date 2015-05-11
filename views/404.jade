@@ -6,5 +6,7 @@ block head
 
 block content
   div.verticaler
-  div.logo-img
-    a(href="/index/")
+  div.no-data
+    | PAGE NOT FOUND
+  script(type='text/javascript').
+    setTimeout(function () { window.location.replace("/index/"); }, 5000);

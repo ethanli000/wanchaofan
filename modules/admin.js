@@ -2,7 +2,7 @@ var Mongolian = require("mongolian");
 
 // Constructor
 function Admin() {
-  this.db = new Mongolian("mongodb://wcfadmin:8ffae097a0@ds029960.mongolab.com:29960/wanchaofan");
+  this.db = new Mongolian(process.env.NODE_DB);
 }
 
 Admin.prototype.login = function (user, pass, display) {

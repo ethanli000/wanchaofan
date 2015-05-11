@@ -1,9 +1,13 @@
-$contentFont = "Lucida Grande", Helvetica, Arial, sans-serif
+$contentFont =  'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Geneva, Verdana, sans-serif
+$colorW1 = #FBFBFB
+$colorW2 = #C9C9C9
+$colorB1 = #0F0F0F
+$colorB2 = #2E2E2E
 
-$sideMenuTextColor = #b8b8b8
+$sideMenuTextColor = $colorW2
 $globalMinWidth = 768px
-$sideMenuMarginRight = 30px
-$sideContainerWidth = 200px + $sideMenuMarginRight
+$sideMenuMarginRight = 10px
+$sideContainerWidth = 260px + $sideMenuMarginRight
 $MainContainerMinWidth = $globalMinWidth - $sideContainerWidth
 
 div,p,h1
@@ -18,6 +22,7 @@ html,body
 body
   text-align: center
   font: 10px $contentFont
+  color: $colorB1
   a
     //cursor: url('/images/icon/location-arrow-outline.svg'), pointer
 
@@ -26,8 +31,9 @@ body
   width: 100%
   min-width: $globalMinWidth
   height: 100%
+  max-height: 100% !important
   min-height: 100% !important
-  background-color: #FBFBFB
+  background-color: $colorW1
   vertical-align: middle
   .verticaler
     display: inline-block
@@ -42,9 +48,10 @@ body
   text-align: right
 
 #logo
-  margin 50px $sideMenuMarginRight 50px 0
-  font-size:2em
+  margin: 50px $sideMenuMarginRight 50px 0
   a
+    font-size: 2em
+    line-height: 2em
     color: inherit
     text-decoration: none
         
@@ -56,19 +63,21 @@ body
     list-style-type: none
     li
       line-height: 1.6em
+      margin-bottom: 5px
     li a
       display:block
       width: auto
-      padding: 3px $sideMenuMarginRight 3px 0
+      padding: 2px $sideMenuMarginRight 2px 0
+
       font-size: 1.4em
       text-decoration: none
       color: $sideMenuTextColor
       &:hover
-        color: darken($sideMenuTextColor,75%)
+        color: $colorB2
     li.selected a
-      color: darken($sideMenuTextColor,75%)
+      color: $colorB2
     li.bio
-      margin-top: 15px
+      margin-top: 25px
   
 .main-container
   position: relative
@@ -77,12 +86,23 @@ body
   height: 100%
   text-align: left
   
-  /*
-   * assistant css
-   */
+/*
+ * assistant css
+ */
 .clearfix:after
   content: "."
   visibility: hidden
   display: block
   height: 0
   clear: both
+
+/*
+ * no data
+ */
+.no-data
+  vertical-align: middle
+  display: inline-block
+  width: 100%
+  text-align: center
+  font-size: 5em
+  color: $colorB2

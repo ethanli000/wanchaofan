@@ -9,11 +9,8 @@ block side
   include includes/menu
 
 block main
-  if(user_info.cover_photo_url)
-    div.gallery
-      div.photo
-        image(src="#{user_info.cover_photo_url}")
-  else
-    div.verticaler
-    div.no-data
-      | NO PHOTO YET
+  div.verticaler
+  div.no-data
+    | NOT FOUND
+  script(type='text/javascript').
+    setTimeout(function () { window.location.replace("/photo/"); }, 5000); 

@@ -2,6 +2,7 @@ extends layout
 
 block head
   include includes/head
+  script(src='/javascripts/gallery.js')
   link(rel='stylesheet', href='/stylesheets/main.css')
 
 block side
@@ -23,5 +24,6 @@ block main
             |#{series.photo_count}
       div.go-right
   else
-    div.no-photo
+    div.verticaler
+    div.no-data
       | NO PHOTO YET
