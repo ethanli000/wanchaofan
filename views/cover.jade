@@ -12,6 +12,8 @@ block main
   if(user_info.cover_photo_url)
     div.gallery
       div.photo
+        div.spin-container
+          div#spin
         image(src="#{user_info.cover_photo_url}")
   else
     div.verticaler

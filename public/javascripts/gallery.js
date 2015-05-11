@@ -8,7 +8,7 @@ var max_sort = 1;
 var photo_ratio = 1;
 /* functions */
 var init = function () {
-  photo_ratio = $(".photo img").width() / $(".photo img").height();
+  //photo_ratio = $(".photo img").width() / $(".photo img").height();
   if ($("li.selected").length > 0) {
     if ($("li.selected").next().length > 0) {
       next_series = $("li.selected").next().children("a").attr("href");
@@ -159,8 +159,25 @@ var go_right = function () {
 };
 
 /* events */
-$(window).load(function () {
+$(document).ready(function () {
   init();
+  $(".photo").width("100%");
+  $(".spin-container").width("100%");
+  $(".spin-container").height("100%");
+  $(".spin-container").css("opacity", "1");
+  spin_start();
+  var img_src = $(".photo img").attr("src");
+  $(".photo img").attr("src", "");
+  $("<img/>").attr("src", img_src).load(function () {
+    photo_ratio = this.width / this.height;
+    setSize();
+    spin_stop();
+    $(".spin-container").css("opacity", "0.7");
+    $(".photo img").attr("src", img_src);
+  });
+});
+
+$(window).load(function () {
   setSize();
 });
 

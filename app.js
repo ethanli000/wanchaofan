@@ -76,7 +76,7 @@ app.use(function(err, req, res, next) {
   //   message: err.message,
   //   error: {}
   // });
-  res.render('404');
+  res.render('404', { title: 'Wan Chaofan - NOT FOUND' });
 });
 
 
