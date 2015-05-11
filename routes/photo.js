@@ -22,12 +22,15 @@ router.param('name', function (req, res, next, name) {
     if (name === res.locals.makeUrl(series.name)) {
       series_key = series.series_key;
       req.display.series = series;
-      next();
     }
   });
   if (!series_key) {
     res.redirect('not_found');
   }
+  if (!req.display.series.is_show) {
+    res.redirect('not_found');
+  }
+  next();
 });
 
 router.get('/', function (req, res) {

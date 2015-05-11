@@ -183,7 +183,6 @@ $(document).on("click", ".go-right", function () {
 //mobile swipe
 $(document).on("swipeleft", ".gallery", function () {
   if (is_img_loading_check() && max_sort) {
-    $(".photo").animate({left: '-=3%'}, 130, "linear").animate({left: '50%'}, 120, "linear", function () {
       go_right();
     });
     // go_right();
@@ -192,7 +191,6 @@ $(document).on("swipeleft", ".gallery", function () {
 
 $(document).on("swiperight", ".gallery", function () {
   if (is_img_loading_check() && max_sort) {
-    $(".photo").animate({left: '+=3%'}, 130, "linear").animate({left: '50%'}, 120, "linear", function () {
       go_left();
     });
     // go_left();
