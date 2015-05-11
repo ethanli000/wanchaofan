@@ -181,18 +181,20 @@ $(document).on("click", ".go-right", function () {
 });
 
 //mobile swipe
-$(document).on("swipeleft", ".gallery", function () {
+$(document).on("swipeleft", ".gallery", function (event) {
+  event.stopImmediatePropagation();
   if (is_img_loading_check() && max_sort) {
-    $(".photo").animate({left: '-=10'}, 130, "linear").animate({left: '50%'}, 120, "linear", function () {
+    $(".photo").stop().animate({left: '-=10px'}, 200, "linear").stop().animate({left: '50%'}, 150, "linear", function () {
       go_right();
     });
     // go_right();
   }
 });
 
-$(document).on("swiperight", ".gallery", function () {
+$(document).on("swiperight", ".gallery", function (event) {
+  event.stopImmediatePropagation();
   if (is_img_loading_check() && max_sort) {
-    $(".photo").animate({left: '+=10'}, 130, "linear").animate({left: '50%'}, 120, "linear", function () {
+    $(".photo").stop().animate({left: '+=10px'}, 200, "linear").stop().animate({left: '50%'}, 150, "linear", function () {
       go_left();
     });
     // go_left();
