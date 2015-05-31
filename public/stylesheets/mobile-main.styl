@@ -1,0 +1,32 @@
+@import 'includes/init'
+
+@media screen and (max-device-width: 1024px)
+  .gallery
+    .go-left
+      display: none
+    .go-right
+      display: none
+      
+@media screen and (max-device-width: 768px) and (orientation: portrait)
+  .mobile-menu
+    display: block
+  .side-container
+    display: none
+    #logo a
+      color: $colorW2
+  .grand-container.on .mobile-menu
+    display: none
+  .grand-container.on .side-container
+      display: block
+      background-color: $colorB2
+      li a 
+        color: $colorW2
+        &:hover
+          color: $colorW1 !important
+      li.selected a
+        color: $colorW1 !important
+  .main-container
+    margin-left: 0
+  .grand-container.on .main-container
+    margin-left: $sideContainerWidth
+    margin-right: -$sideContainerWidth

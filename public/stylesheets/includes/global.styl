@@ -1,14 +1,4 @@
-$contentFont = 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Geneva, Verdana, "Microsoft YaHei", STHeiti, "メイリオ", Meiryo, sans-serif
-$colorW1 = #FBFBFB
-$colorW2 = #C9C9C9
-$colorB1 = #0F0F0F
-$colorB2 = #2E2E2E
-
-$sideMenuTextColor = $colorW2
-$globalMinWidth = 768px
-$sideMenuMarginRight = 10px
-$sideContainerWidth = 260px + $sideMenuMarginRight
-$MainContainerMinWidth = $globalMinWidth - $sideContainerWidth
+@import 'includes/init'
 
 div,p,h1
   margin:0
@@ -22,6 +12,7 @@ html,body
 body
   text-align: center
   font: 10px $contentFont
+  background-color: $colorW1
   color: $colorB1
   a
     //cursor: url('/images/icon/location-arrow-outline.svg'), pointer
@@ -33,13 +24,23 @@ body
   height: 100%
   max-height: 100% !important
   min-height: 100% !important
-  background-color: $colorW1
   vertical-align: middle
   .verticaler
     display: inline-block
     vertical-align: middle
     height: 100%
-    
+
+.mobile-menu
+  position: absolute
+  z-index: 100
+  display: none
+  top: 50px
+  left: 20px
+  width: 30px
+  height: 30px
+  background: url('/images/icon/menu.svg')
+  background-size: 100% 100%
+
 .side-container
   float: left
   position: relative

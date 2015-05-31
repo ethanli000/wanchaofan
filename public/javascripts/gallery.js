@@ -135,25 +135,21 @@ var is_img_loading_check = function () {
 
 var go_left = function () {
   if (current_sort === 1) {
-    if (prev_series !== "") {
-      window.location.href = prev_series;
-    }
-    return false;
+    current_sort = max_sort;
+  } else {
+    current_sort--;
   }
   //update img file
-  current_sort--;
   update_img();
   return true;
 };
 var go_right = function () {
   if (current_sort === max_sort) {
-    if (next_series !== "") {
-      window.location.href = next_series;
-    }
-    return false;
+    current_sort = 1;
+  } else {
+    current_sort++;
   }
   //update img file
-  current_sort++;
   update_img();
   return true;
 };
@@ -200,7 +196,7 @@ $(document).on("click", ".go-right", function () {
 //mobile swipe
 $(document).on("swipeleft", ".gallery", function (event) {
   event.stopImmediatePropagation();
-  if (is_img_loading_check() && max_sort) {
+  if (is_img_loading_check() && max_sort && !is_mobile_menu_on) {
     // $(".photo").stop().animate({left: '-=10px'}, 200, "linear").stop().animate({left: '50%'}, 150, "linear", function () {
     //   go_right();
     // });
@@ -210,10 +206,20 @@ $(document).on("swipeleft", ".gallery", function (event) {
 
 $(document).on("swiperight", ".gallery", function (event) {
   event.stopImmediatePropagation();
-  if (is_img_loading_check() && max_sort) {
+  if (is_img_loading_check() && max_sort && !is_mobile_menu_on) {
     // $(".photo").stop().animate({left: '+=10px'}, 200, "linear").stop().animate({left: '50%'}, 150, "linear", function () {
     //   go_left();
     // });
     go_left();
+  }
+});
+
+$(document).on("tap", ".photo img", function (event) {
+  //event.stopPropagation();
+  if (is_img_loading_check() && max_sort && !is_mobile_menu_on) {
+    // $(".photo").stop().animate({left: '-=10px'}, 200, "linear").stop().animate({left: '50%'}, 150, "linear", function () {
+    //   go_right();
+    // });
+    go_right();
   }
 });

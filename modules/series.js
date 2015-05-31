@@ -7,7 +7,7 @@ function Series() {
 
 Series.prototype.getList = function (next) {
   var series = this.db.collection('series');
-  series.find({ is_delete: 0 }, {_id: 0, create_time: 0}).toArray(function (err, series_list) {
+  series.find({ is_delete: 0 }, {_id: 0, create_time: 0}).sort({series_key: 1}).toArray(function (err, series_list) {
     if (!err && series_list) {
       //console.log(series_list);
       next(series_list);
