@@ -196,7 +196,7 @@ $(document).on("click", ".go-right", function () {
 //mobile swipe
 $(document).on("swipeleft", ".gallery", function (event) {
   event.stopImmediatePropagation();
-  if (is_img_loading_check() && max_sort && !is_mobile_menu_on) {
+  if (is_img_loading_check() && max_sort && is_mobile_menu_on !== 1) {
     // $(".photo").stop().animate({left: '-=10px'}, 200, "linear").stop().animate({left: '50%'}, 150, "linear", function () {
     //   go_right();
     // });
@@ -206,7 +206,7 @@ $(document).on("swipeleft", ".gallery", function (event) {
 
 $(document).on("swiperight", ".gallery", function (event) {
   event.stopImmediatePropagation();
-  if (is_img_loading_check() && max_sort && !is_mobile_menu_on) {
+  if (is_img_loading_check() && max_sort && is_mobile_menu_on !== 1) {
     // $(".photo").stop().animate({left: '+=10px'}, 200, "linear").stop().animate({left: '50%'}, 150, "linear", function () {
     //   go_left();
     // });
@@ -215,8 +215,9 @@ $(document).on("swiperight", ".gallery", function (event) {
 });
 
 $(document).on("tap", ".photo img", function (event) {
+  //alert(is_mobile_menu_on);
   //event.stopPropagation();
-  if (is_img_loading_check() && max_sort && !is_mobile_menu_on) {
+  if (is_img_loading_check() && max_sort && is_mobile_menu_on !== 1) {
     // $(".photo").stop().animate({left: '-=10px'}, 200, "linear").stop().animate({left: '50%'}, 150, "linear", function () {
     //   go_right();
     // });
